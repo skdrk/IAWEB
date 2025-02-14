@@ -106,5 +106,5 @@ function tablaUsers() {
         echo "</tr>";
     }
     echo "</table>";
-    echo "<div>";
+    echo "</div>";
 }

@@ -257,14 +257,13 @@ ul, ol {
 	padding:0;
 }
 
-.tdiv {
-	height: 70vh;
-	border: solid black 1px;
-}
 .tusers {
-	border: solid 1px black;
-	border-collapse: collapse;
+	margin: 3rem auto;
+    border: solid 1px black;
+    border-collapse: collapse;
 }
+
+
 .tusers th, .tusers td{
 	border: solid 1px black;
 }

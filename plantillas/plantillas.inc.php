@@ -50,73 +50,28 @@ function contido(){ ?>
 <div id="principal">
 
     <!-- Articulo -->
-    <div class="articulo">
-        <h2><a href="#">Lorem ipsum dolor sit amet</a></h2>
-        <p class="info">
-            <span class="fecha">dd-mm-aaaa 00:00</span>
-            <span class="categoria"><a href="#">deseño</a></span>
-            <?php if (isset($_GET["categoria"])) {
-                echo "<span class='categoria'><a href=" . "index.php?categoria=" . "{$_GET['categoria']}" . ">Categoria {$_GET['categoria']}</a></span>";
+    <?php 
+        $artigos = getArtigos();
+        echo '<div class="articulo">';
+        foreach ($artigos as $x=>$artigo) {
+            if ($_GET["categoria"] == $artigos[$x]["subcategoria"]) {
+                echo "</p>";
+                echo '<h2><a href="#">' . $artigos[$x]["titulo"] . '</a></h2>';
+                echo '<p class="info">';
+                echo '<span class="fecha">' . $artigos[$x]["data"] . '</span>';
+                echo '<span class="categoria"><a href="#">deseño</a></span>';
+                if (isset($_GET["categoria"])) {
+                    echo "<span class='categoria'><a href=" . "index.php?categoria=" . $artigos[$x]["subcategoria"] . ">Categoria " . $artigos[$x]["subcategoria"] . "</span></a>";
+                }
+                echo "<p>" . $artigos[$x]["contido"]. "</p>";
             }
-            ?>
-            <span class="autor"><a href="#">Nome Apelido</a></span>
-            <span class="comentarios"><a href="#">Engadir comentario</a></span>
-        </p>
-
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam pellentesque enim blandit enim bibendum blandit.
-        Integer eu leo ac est aliquet imperdiet. Quisque nec justo id augue posuere malesuada. Nullam ac metus. Cras non leo
-        ut est placerat condimentum.</p>
-
-        <p class="btn-more"><a href="#">Seguir lendo...</a></p>
-    </div> <!-- /articulo -->
+        }
+        echo '</div> <!-- /articulo -->'
+    ?>
 
     <div class="clear"></div>
     
-    <!-- Articulo -->
-    <div class="articulo">
-        <h2><a href="#">Lorem ipsum dolor sit amet</a></h2>
-        <p class="info">
-            <span class="fecha">dd-mm-aaaa 00:00</span>
-            <span class="categoria"><a href="#">deseño</a></span>
-            <?php if (isset($_GET["categoria"])) {
-                echo "<span class='categoria'><a href=" . "index.php?categoria=" . "{$_GET['categoria']}" . ">Categoria {$_GET['categoria']}</a></span>";
-            }
-            ?>
-            <span class="autor"><a href="#">Nome Apelido</a></span>
-            <span class="comentarios"><a href="#">Engadir comentario</a></span>
-        </p>
-
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam pellentesque enim blandit enim bibendum blandit.
-        Integer eu leo ac est aliquet imperdiet. Quisque nec justo id augue posuere malesuada. Nullam ac metus. Cras non leo
-        ut est placerat condimentum.</p>
-
-        <p class="btn-more"><a href="#">Seguir lendo...</a></p>
-    </div> <!-- /articulo -->
-
-    <div class="clear"></div>
-    
-    <!-- Articulo -->
-    <div class="articulo">
-        <h2><a href="#">Lorem ipsum dolor sit amet</a></h2>
-        <p class="info">
-            <span class="fecha">dd-mm-aaaa 00:00</span>
-            <span class="categoria"><a href="#">deseño</a></span>
-            <?php if (isset($_GET["categoria"])) {
-                echo "<span class='categoria'><a href=" . "index.php?categoria=" . "{$_GET['categoria']}" . ">Categoria {$_GET['categoria']}</a></span>";
-            }
-            ?>
-            <span class="autor"><a href="#">Nome Apelido</a></span>
-            <span class="comentarios"><a href="#">Engadir comentario</a></span>
-        </p>
-
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam pellentesque enim blandit enim bibendum blandit.
-        Integer eu leo ac est aliquet imperdiet. Quisque nec justo id augue posuere malesuada. Nullam ac metus. Cras non leo
-        ut est placerat condimentum.</p>
-
-        <p class="btn-more"><a href="#">Seguir lendo...</a></p>
-    </div> <!-- /articulo -->
-
-    <div class="clear"></div>
+   
 
 </div><!-- /principal -->
 
@@ -135,19 +90,20 @@ function contido(){ ?>
         </div> <!-- /sobre mi -->
 
         <div class="clear"></div>
-
         <!-- Categorías -->
-        <h3>Categorías</h3>
-
-        <ul id="categorias">
-            <li <?php if (isset($_GET['categoria']) &&  $_GET['categoria'] == 1) {echo ' class="seleccionado"';} ?>><a href="index.php?categoria=1"  >Categoría 1</a></li>
-            <li <?php if (isset($_GET['categoria']) &&  $_GET['categoria'] == 2) {echo ' class="seleccionado"';} ?>><a href="index.php?categoria=2"  >Categoría 2</a></li>
-            <li  <?php if (isset($_GET['categoria']) &&  $_GET['categoria'] == 3) {echo ' class="seleccionado"';} ?>><a href="index.php?categoria=3" >Categoría 3</a></li>
-            <li <?php if (isset($_GET['categoria']) &&  $_GET['categoria'] == 4) {echo ' class="seleccionado"';} ?>><a href="index.php?categoria=4" >Categoría 4</a></li>
-            <li <?php if (isset($_GET['categoria']) &&  $_GET['categoria'] == 5) {echo ' class="seleccionado"';} ?>><a href="index.php?categoria=5"  >Categoría 5</a></li>
-        </ul>
-
-        <div class="clear"></div>
+         <?php
+               $categorias = getCategorias();
+               foreach ($categorias as $i=>$categoria) {
+                    if ($i == 0 or $categorias[$i]["categoria"] !=  $categorias[$i - 1]["categoria"] ){
+                        echo "</ul>";
+                        echo "<h3>". $categorias[$i]["categoria"] . "</h3>";
+                        echo "<ul id='categorias'>";
+                    }
+                    echo "<li ";
+                    if (isset($_GET['categoria']) &&  $_GET['categoria'] == $categorias[$i]["subcategoria"]) { echo ' class="seleccionado"'; }
+                    echo "><a href='index.php?categoria=" . $categorias[$i]["subcategoria"]  . "'>" . $categorias[$i]["subcategoria"] . "</a></li>";
+                }
+           ?>
 
         <!-- Archivo -->
         <h3>Arquivo</h3>

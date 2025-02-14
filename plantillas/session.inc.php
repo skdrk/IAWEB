@@ -1,8 +1,7 @@
 <?php
-
-function iniciarSesion() {
     require_once("./plantillas/conexion.php");
-    
+function iniciarSesion() {
+  
     $login = $_SESSION["usuario"];
     $password = $_SESSION["contraseña"];
 
@@ -25,6 +24,25 @@ function iniciarSesion() {
     }
     
 
+}
+
+
+function getCategorias() {
+    $mysqli = getConnection();
+    $stmt = $mysqli->prepare("SELECT * FROM cat_subcat");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $categorias = $result->fetch_all(MYSQLI_ASSOC);
+    return $categorias;
+}
+
+function getArtigos() {
+    $mysqli = getConnection();
+    $stmt = $mysqli->prepare("SELECT * FROM artigo");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $artigos = $result->fetch_all(MYSQLI_ASSOC);
+    return $artigos;
 }
 
 

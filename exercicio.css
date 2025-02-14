@@ -256,3 +256,15 @@ ul, ol {
 	margin: 1em 0 1em 2em;
 	padding:0;
 }
+
+.tdiv {
+	height: 70vh;
+	border: solid black 1px;
+}
+.tusers {
+	border: solid 1px black;
+	border-collapse: collapse;
+}
+.tusers th, .tusers td{
+	border: solid 1px black;
+}

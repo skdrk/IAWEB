@@ -19,7 +19,8 @@ function cabecera(){ ?>
 
 <div class="clear"></div>
 </div> <!-- /cabecera -->
-<?php } ?>
+
+<?php defaultCategori(); } ?>
 
 <?php 
 function menuPrincipal(){ ?>

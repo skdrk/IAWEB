@@ -4,7 +4,7 @@ function iniciarSesion() {
   
     $login = $_SESSION["usuario"];
     $password = $_SESSION["contraseña"];
-
+    $mysqli = getConnection();
     $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE login = ? and password = ?");
     $stmt->bind_param('ss', $login, $password);
     $stmt->execute();
@@ -26,6 +26,12 @@ function iniciarSesion() {
 
 }
 
+
+function defaultCategori() {
+    if (!isset($_GET["categoria"])) {
+        return $_GET["categoria"] = "Windows";
+    }
+}
 
 function getCategorias() {
     $mysqli = getConnection();
@@ -71,43 +77,34 @@ function comprobarUsuario() {
 }
 
 
-/*
-
-    $login = [
-        "usuario" => ["admin", "usr01"], 
-        "contraseña" => ["1234", "qwerty"]
-    ];
-
-    $usuario = [
-        ["admin" => "1234"],
-        ["usr01" => "qwerty"]
-    ];
-    
-    $userok = FALSE;
-    foreach ($login["usuario"] as $key => $user) {
-        if ($_SESSION["usuario"] == $user) {
-            
-            if ($login["contraseña"][$key] == $_SESSION["contraseña"]) {
-                $userok = TRUE;
-                if ($user == "admin") {
-                $_SESSION["nombreReal"] = "Borja";
-                $_SESSION["apellidos"] = "Fernandez Veloso";
-                $_SESSION["edad"] = "25";
-                $_SESSION["ciudad"] = "Ourense";
-                break;
-            }
-            if ($login["contraseña"][$key] == $_SESSION["contraseña"]) {
-                $userok = TRUE;
-                if ($user == "usr01") {
-                $_SESSION["nombreReal"] = "Chema";
-                $_SESSION["apellidos"] = "Gonzaled Fariñas";
-                $_SESSION["edad"] = "25";
-                $_SESSION["ciudad"] = "Ourense";
-                break;
-                }
-            }    
-        }
+function tablaUsers() {
+    $mysqli = getConnection();
+    $stmt = $mysqli->prepare("SELECT * FROM usuarios");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $usuarios = $result->fetch_all(MYSQLI_ASSOC);
+    echo "<div class='tdiv'>";
+    echo "<table class='tusers'>";
+    echo "<tr>";
+    echo "<th>ID</th>";
+    echo "<th>NOMBRE</th>";
+    echo "<th>APELLIDOS</th>";
+    echo "<th>LOGIN</th>";
+    echo "<th>EDAD</th>";
+    echo "<th>LOCALIDAD</th>";
+    echo "<th>ROL</th>";
+    echo "</tr>";
+    foreach ($usuarios as $j=>$usuario) {
+        echo "<tr>";
+        echo "<td>" . $usuarios[$j]["id"] . "</td>";
+        echo "<td>" . $usuarios[$j]["nombre"] . "</td>";
+        echo "<td>" . $usuarios[$j]["apellidos"] . "</td>";
+        echo "<td>" . $usuarios[$j]["login"] . "</td>";
+        echo "<td>" . $usuarios[$j]["edad"] . "</td>";
+        echo "<td>" . $usuarios[$j]["localidad"] . "</td>";
+        echo "<td>" . $usuarios[$j]["rol"] . "</td>";
+        echo "</tr>";
     }
-*/
-
-?>
+    echo "</table>";
+    echo "<div>";
+}

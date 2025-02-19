@@ -94,7 +94,7 @@ function tablaUsers() {
     echo "<th>LOCALIDAD</th>";
     echo "<th>ROL</th>";
     echo "</tr>";
-    foreach ($usuarios as $j=>$usuario) {
+    for ($j = 0; $j < count($usuarios); $j++) {
         echo "<tr>";
         echo "<td>" . $usuarios[$j]["id"] . "</td>";
         echo "<td>" . $usuarios[$j]["nombre"] . "</td>";

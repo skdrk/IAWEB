@@ -1,4 +1,29 @@
 <?php 
+
+function headPagina() {
+    echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+    <!-- Este deseño baséase nun deseño web libre chamado CrystalX e que se pode descargar desde
+         a dirección http://www.oswd.org/design/preview/id/3465 -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="es" />
+
+    <meta name="copyright" content="Design/Code: Vit Dlouhy [Nuvio - www.nuvio.cz]; e-mail: vit.dlouhy@nuvio.cz" />
+    
+    <title>O meu sitio web</title>
+    <meta name="description" content="O meu sitio web" />
+    <meta name="keywords" content="sitio, web" />
+    
+    <link rel="shortcut icon" href="imaxes/Icono.ico"/>
+    <link rel="index" href="/" title="Inicio" />
+    <link rel="stylesheet" media="screen,projection" type="text/css" href="exercicio.css" />
+	
+</head>';
+
+}
+
+
 function cabecera(){ ?>
 <!-- Cabecera -->
 <div id="cabecera">
@@ -54,7 +79,7 @@ function contido(){ ?>
     <?php 
         $artigos = getArtigos();
         echo '<div class="articulo">';
-        foreach ($artigos as $x=>$artigo) {
+        for ($x = 0; $x < count($artigos); $x++) {
             if ($_GET["categoria"] == $artigos[$x]["subcategoria"]) {
                 echo "</p>";
                 echo '<h2><a href="#">' . $artigos[$x]["titulo"] . '</a></h2>';
@@ -94,7 +119,7 @@ function contido(){ ?>
         <!-- Categorías -->
          <?php
                $categorias = getCategorias();
-               foreach ($categorias as $i=>$categoria) {
+               for ($i = 0; $i < count($categorias); $i++) {
                     if ($i == 0 or $categorias[$i]["categoria"] !=  $categorias[$i - 1]["categoria"] ){
                         echo "</ul>";
                         echo "<h3>". $categorias[$i]["categoria"] . "</h3>";
@@ -105,6 +130,12 @@ function contido(){ ?>
                     echo "><a href='index.php?categoria=" . $categorias[$i]["subcategoria"]  . "'>" . $categorias[$i]["subcategoria"] . "</a></li>";
                 }
            ?>
+
+        <h3>Acciones</h3>
+
+        <ul id="archivo">
+            <li><a href="crearnodo.php">Crear nodo</a></li>
+        </ul>
 
         <!-- Archivo -->
         <h3>Arquivo</h3>

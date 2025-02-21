@@ -142,7 +142,7 @@ p {
 #contenido .articulo {
 	clear: both;
 	margin: 0;
-	padding: 20px;
+	padding: 40px 20px;
 	background: url("imaxes/fondo_articulo.jpg") no-repeat;
 }
 #contenido .articulo h2 {
@@ -270,4 +270,8 @@ ul, ol {
 
 #lista {
 	padding-top: 1rem;
+}
+
+.articulo .botones-articulos {
+	padding-bottom: 0.5rem;
 }

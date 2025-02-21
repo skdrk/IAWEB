@@ -124,3 +124,35 @@ function crearNodo() {
         return False;
     }
 }
+
+function borrarNodo() {
+    if (isset($_GET["borrar"])) {
+        $id = $_GET["articulo"];
+        $mysqli = getConnection();
+        $stmt = $mysqli->prepare("DELETE FROM artigo WHERE id = '$id'");
+        $stmt->execute();
+        return True;
+    } else {
+        return False;
+    }
+}
+
+function crearCategoria() {
+    if (isset($_GET["categoria"]) && isset($_GET["subcategoria"])) {
+        $categoria = $_GET["categoria"];
+        $subcategoria = $_GET["subcategoria"];
+        $mysqli = getConnection();
+        $stmt = $mysqli->prepare("INSERT INTO cat_subcat(categoria,subcategoria) VALUES ('$categoria','$subcategoria')");
+        $stmt->execute();
+        return True;
+    } elseif (!isset($_GET["categoria"]) && isset($_GET["subcategoria"])) {
+        $categoria = $_GET["categorias"];
+        $subcategoria = $_GET["subcategoria"];
+        $mysqli = getConnection();
+        $stmt = $mysqli->prepare("INSERT INTO cat_subcat(categoria,subcategoria) VALUES ('$categoria','$subcategoria')");
+        $stmt->execute();
+        return True;
+    } else {
+        return False;
+    }
+}

@@ -66,7 +66,12 @@ function menuPrincipal(){ ?>
 
 <div class="clear"></div>
 </div> <!-- /menú principal -->
+
+
+
 <?php } ?>
+
+
 <?php 
 function contido(){ ?>
 <!-- Contenido -->
@@ -81,7 +86,6 @@ function contido(){ ?>
         echo '<div class="articulo">';
         for ($x = 0; $x < count($artigos); $x++) {
             if ($_GET["categoria"] == $artigos[$x]["subcategoria"]) {
-                echo "</p>";
                 echo '<h2><a href="#">' . $artigos[$x]["titulo"] . '</a></h2>';
                 echo '<p class="info">';
                 echo '<span class="fecha">' . $artigos[$x]["data"] . '</span>';
@@ -90,7 +94,9 @@ function contido(){ ?>
                     echo "<span class='categoria'><a href=" . "index.php?categoria=" . $artigos[$x]["subcategoria"] . ">Categoria " . $artigos[$x]["subcategoria"] . "</span></a>";
                 }
                 echo "<p>" . $artigos[$x]["contido"]. "</p>";
+                echo "<div class='botones-articulos'> <form method='GET' action='borrar.php'><button type='submit' name='articulo' value='" . $artigos[$x]["id"] . "'>Borrar</button></form></div>";
             }
+
         }
         echo '</div> <!-- /articulo -->'
     ?>
@@ -135,6 +141,7 @@ function contido(){ ?>
 
         <ul id="archivo">
             <li><a href="crearnodo.php">Crear nodo</a></li>
+            <li><a href="crearcategoria.php">Crear Categoria</a></li>
         </ul>
 
         <!-- Archivo -->

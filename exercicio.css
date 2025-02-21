@@ -267,3 +267,7 @@ ul, ol {
 .tusers th, .tusers td{
 	border: solid 1px black;
 }
+
+#lista {
+	padding-top: 1rem;
+}

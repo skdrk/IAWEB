@@ -108,3 +108,19 @@ function tablaUsers() {
     echo "</table>";
     echo "</div>";
 }
+
+function crearNodo() {
+    if (isset($_GET["titulo"])) {
+        $titulo = $_GET["titulo"];
+        $contido = $_GET["contido"];
+        $subcategoria = $_GET["subcategoria"];
+        $autor = $_SESSION["usuario"];
+        $fecha = date('Y-m-d H:i:s');
+        $mysqli = getConnection();
+        $stmt = $mysqli->prepare("INSERT INTO artigo(titulo,autor,contido,data,subcategoria) VALUES ('$titulo', '$autor', '$contido', '$fecha', '$subcategoria')");
+        $stmt->execute();
+        return True;
+    } else {
+        return False;
+    }
+}

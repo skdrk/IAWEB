@@ -45,7 +45,7 @@ function cabecera(){ ?>
 <div class="clear"></div>
 </div> <!-- /cabecera -->
 
-<?php defaultCategori(); } ?>
+<?php } ?>
 
 <?php 
 function menuPrincipal(){ ?>
@@ -54,7 +54,7 @@ function menuPrincipal(){ ?>
     <ul>
         <li><a href="index.php">Inicio</a></li>
         <li class="seleccionado"><a href="#">Blog</a></li>
-        <li><a href="./login.php">Sobre min</a></li>
+        <li><a href="#">Sobre min</a></li>
         <li><a href="#">Fotos</a></li>
         <li><a href="contacto.php">Contacto</a></li>
         <li><a href="#">Enlaces</a></li>

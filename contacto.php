@@ -1,5 +1,7 @@
 <?php 
+    session_start();
     require_once("./plantillas/plantillas.inc.php");
+    require_once("./plantillas/session.inc.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">

@@ -13,6 +13,7 @@
 <div id="contenedor">
     <?php cabecera(); ?>
     <?php menuPrincipal(); ?>
+    <?php defaultCategori();?>
     <?php contido(); ?>
     <?php pe(); ?>
     

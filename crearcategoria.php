@@ -9,7 +9,9 @@
             comprobarUsuario();
             cabecera();
             menuPrincipal();
-            $resultado = crearCategoria();
+            if(isset($_GET["subcategoria"])){
+                $resultado = crearCategoria();
+            }
             ?>
             <div id="contenedor">
                 <form action="crearcategoria.php" method="GET">
@@ -28,7 +30,7 @@
                                 echo "</option>";
                             }
                             
-                            echo "<option value=". $categorias[$i]['categoria'] ."> " . $categorias[$i]['categoria'] ."</option>";
+                            echo "<option value='". $categorias[$i]['categoria'] ."'> " . $categorias[$i]['categoria'] ."</option>";
                         }
                     } 
                     ?>

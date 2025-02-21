@@ -122,6 +122,13 @@ function contido(){ ?>
         </div> <!-- /sobre mi -->
 
         <div class="clear"></div>
+
+        <h3>Acciones</h3>
+
+        <ul id="archivo">
+            <li><a href="crearnodo.php">Crear nodo</a></li>
+            <li><a href="crearcategoria.php">Crear Categoria</a></li>
+        </ul>
         <!-- Categorías -->
          <?php
                $categorias = getCategorias();
@@ -137,12 +144,7 @@ function contido(){ ?>
                 }
            ?>
 
-        <h3>Acciones</h3>
 
-        <ul id="archivo">
-            <li><a href="crearnodo.php">Crear nodo</a></li>
-            <li><a href="crearcategoria.php">Crear Categoria</a></li>
-        </ul>
 
         <!-- Archivo -->
         <h3>Arquivo</h3>

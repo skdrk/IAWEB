@@ -35,7 +35,7 @@ function defaultCategori() {
 
 function getCategorias() {
     $mysqli = getConnection();
-    $stmt = $mysqli->prepare("SELECT * FROM cat_subcat");
+    $stmt = $mysqli->prepare("SELECT * FROM cat_subcat ORDER BY categoria");
     $stmt->execute();
     $result = $stmt->get_result();
     $categorias = $result->fetch_all(MYSQLI_ASSOC);
@@ -138,21 +138,15 @@ function borrarNodo() {
 }
 
 function crearCategoria() {
-    if (isset($_GET["categoria"]) && isset($_GET["subcategoria"])) {
-        $categoria = $_GET["categoria"];
-        $subcategoria = $_GET["subcategoria"];
-        $mysqli = getConnection();
-        $stmt = $mysqli->prepare("INSERT INTO cat_subcat(categoria,subcategoria) VALUES ('$categoria','$subcategoria')");
-        $stmt->execute();
-        return True;
-    } elseif (!isset($_GET["categoria"]) && isset($_GET["subcategoria"])) {
-        $categoria = $_GET["categorias"];
-        $subcategoria = $_GET["subcategoria"];
-        $mysqli = getConnection();
-        $stmt = $mysqli->prepare("INSERT INTO cat_subcat(categoria,subcategoria) VALUES ('$categoria','$subcategoria')");
-        $stmt->execute();
-        return True;
-    } else {
-        return False;
+    if ($_GET["categoria"] != "") {
+        $categoriaFinal = $_GET["categoria"];
+    }else {
+        $categoriaFinal = $_GET["categorias"];
     }
+    $categoria = $_GET["categorias"];
+    $subcategoria = $_GET["subcategoria"];
+    $mysqli = getConnection();
+    $stmt = $mysqli->prepare("INSERT INTO cat_subcat(categoria,subcategoria) VALUES ('$categoriaFinal','$subcategoria')");
+    $stmt->execute();
+    return True;
 }

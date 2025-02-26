@@ -93,6 +93,8 @@ function tablaUsers() {
     echo "<th>EDAD</th>";
     echo "<th>LOCALIDAD</th>";
     echo "<th>ROL</th>";
+    echo "<th></th>";
+    echo "<th></th>";
     echo "</tr>";
     for ($j = 0; $j < count($usuarios); $j++) {
         echo "<tr>";
@@ -103,6 +105,8 @@ function tablaUsers() {
         echo "<td>" . $usuarios[$j]["edad"] . "</td>";
         echo "<td>" . $usuarios[$j]["localidad"] . "</td>";
         echo "<td>" . $usuarios[$j]["rol"] . "</td>";
+        echo "<td><button value=editar><a href='./editarUser.php?user=" . $usuarios[$j]["id"] . "'>Editar</a></button></td>";
+        echo "<td><button value=eliminar><a href='./eliminarUser.php?user=" . $usuarios[$j]["id"] . "'>Eliminar</a></button></td>";
         echo "</tr>";
     }
     echo "</table>";
@@ -149,4 +153,81 @@ function crearCategoria() {
     $stmt = $mysqli->prepare("INSERT INTO cat_subcat(categoria,subcategoria) VALUES ('$categoriaFinal','$subcategoria')");
     $stmt->execute();
     return True;
+}
+function eliminarUser() {
+    $mysqli = getConnection();
+    if (isset($_GET["user"]) && $_SESSION["rol"] == "admin") { 
+        $id = $_GET['user'];
+        $stmt = $mysqli->prepare("SELECT * FROM usuarios where id = $id");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $usuarios = $result->fetch_all(MYSQLI_ASSOC);
+    echo "<p>¿Estás seguro de que quieres borrar el usuario <strong>" . $usuarios[0]['nombre'] . "</strong>";
+    echo "<form action='eliminarUser.php' method='GET'>
+        <input type='hidden' name='user' value='" . $usuarios[0]['id'] . "'>
+        <input type='hidden' name='borrar'>
+        <input type='submit' value='Borrar'>
+    </form>
+    <form action='usuarios.php'>
+        <input type='submit' value='Cancelar'>
+    </form>";
+    if (isset($_GET['borrar'])) {
+        $id = $usuarios[0]['id'];
+        $stmt = $mysqli->prepare("DELETE FROM usuarios where id = $id");
+        $stmt->execute();
+        header ("Location: ./usuarios.php");
+    }
+    if (isset($_GET[''])) {
+        header ("Location: ./usuarios.php");
+    }
+    }
+}
+
+function editarUser() {
+    $mysqli = getConnection();
+    if (isset($_GET["user"]) && $_SESSION["rol"] == "admin") { 
+        $id = $_GET['user'];
+        $stmt = $mysqli->prepare("SELECT * FROM usuarios where id = $id");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $usuarios = $result->fetch_all(MYSQLI_ASSOC);
+        echo "<div class='tdiv'>";
+        echo "<table class='tusers'>";
+        echo "<tr>";
+        echo "<th>NOMBRE</th>";
+        echo "<th>APELLIDOS</th>";
+        echo "<th>LOGIN</th>";
+        echo "<th>EDAD</th>";
+        echo "<th>LOCALIDAD</th>";
+        echo "<th>ROL</th>";
+        echo "</tr>";
+        echo "<form action='editarUser.php' method='GET'>";
+        echo "<tr>";
+        echo "<input type='hidden' name='id' value='". $id ."' required></td>";
+        echo "<td><input type='text' name='nombre' value='". $usuarios[0]["nombre"] ."'" . $usuarios[0]["nombre"] . " required></td>";
+        echo "<td><input type='text' name='apellidos' value='". $usuarios[0]["apellidos"] ."'" . $usuarios[0]["apellidos"] . " required></td>";
+        echo "<td><input type='text' name='login' value='". $usuarios[0]["login"] ."'" . $usuarios[0]["login"] . " required></td>";
+        echo "<td><input type='text' name='edad' value='". $usuarios[0]["edad"] ."'" . $usuarios[0]["edad"] . " required></td>";
+        echo "<td><input type='text' name='localidad' value='". $usuarios[0]["localidad"] ."'" . $usuarios[0]["localidad"] . " required></td>";
+        echo "<td><input type='text' name='rol' value='". $usuarios[0]["rol"] ."'" . $usuarios[0]["rol"] . " required></td>";
+        echo "</tr>";
+        echo "</table>";
+        echo "<input type='submit'>";
+        echo "</form>";
+        echo "</div>";
+}
+    if (isset($_GET['login'])) {
+        $id = $_GET["id"];
+        $nombre = $_GET["nombre"];
+        $apellidos = $_GET["apellidos"];
+        $login = $_GET["login"];
+        $edad = $_GET["edad"];
+        $localidad = $_GET["localidad"];
+        $rol = $_GET["rol"];
+        $stmt = $mysqli->prepare("UPDATE usuarios SET nombre = ?, apellidos = ?, login = ?, edad = ?, localidad = ?, rol = ? WHERE id = ?");
+        $stmt->bind_param("ssssssi", $nombre, $apellidos, $login, $edad, $localidad, $rol, $id);
+        $stmt->execute();
+        header ("Location: ./usuarios.php");
+    }
+
 }

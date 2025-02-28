@@ -193,5 +193,9 @@ function pe(){ ?>
 <!-- Pie de página -->
 <div id="pie">
 <p id="copyright">&copy; 201X Nome da empresa</p>
+<?php if (isset($_SESSION["usuario"])) {
+    echo "<p id='copyrighpt'>Visita numero: " . $_COOKIE["contador"] . "</p>" ;
+} ?>
+
 </div> <!-- /pie de página -->
 <?php } ?>

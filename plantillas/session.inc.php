@@ -21,6 +21,12 @@ function iniciarSesion() {
         $_SESSION["apellidos"] = $user_data["apellidos"];
         $_SESSION["edad"] = $user_data["edad"];
         $_SESSION["ciudad"] = $user_data["localidad"];
+
+        if (!isset($_COOKIE["contador"])) {
+            setcookie("contador", 1);
+        } else {
+            setcookie("contador", $_COOKIE["contador"] + 1);
+        }
     } else {
         echo "No se encontró el usuario o la contraseña es incorrecta.";
     }

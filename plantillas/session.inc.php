@@ -44,13 +44,31 @@ function getCategorias() {
 
 function getArtigos() {
     $mysqli = getConnection();
-    $stmt = $mysqli->prepare("SELECT * FROM artigo");
+    if (isset($_GET["articulo"])) {
+        $id = $_GET["articulo"];
+        $stmt = $mysqli->prepare("SELECT * FROM artigo WHERE id = $id");
+    } else {
+        $stmt = $mysqli->prepare("SELECT * FROM artigo");
+    }
     $stmt->execute();
     $result = $stmt->get_result();
     $artigos = $result->fetch_all(MYSQLI_ASSOC);
     return $artigos;
 }
 
+function editArtigos($artigos) {
+    $mysqli = getConnection();
+    if (isset($_GET["guardar"])){
+        $id = $_GET["articulo"];
+        $titulo = $_GET["titulo"];
+        $contido = $_GET["contido"];
+        $subcategoria = $_GET["subcategoria"];
+        $stmt = $mysqli->prepare("UPDATE artigo SET titulo = ?, contido = ?, subcategoria = ? WHERE id = ?");
+        $stmt->bind_param("ssss", $titulo, $contido, $subcategoria, $id);
+        $stmt->execute();
+        header ("Location: ./index.php?categoria=$subcategoria");
+    }
+}
 
 
 function finalizarSesion() {

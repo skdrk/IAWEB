@@ -94,7 +94,10 @@ function contido(){ ?>
                     echo "<span class='categoria'><a href=" . "index.php?categoria=" . $artigos[$x]["subcategoria"] . ">Categoria " . $artigos[$x]["subcategoria"] . "</span></a>";
                 }
                 echo "<p>" . $artigos[$x]["contido"]. "</p>";
+                if ($_SESSION["rol"] == "admin") {
                 echo "<div class='botones-articulos'> <form method='GET' action='borrar.php'><button type='submit' name='articulo' value='" . $artigos[$x]["id"] . "'>Borrar</button></form></div>";
+                echo "<div class='botones-articulos'> <form method='GET' action='editar.php'><button type='submit' name='articulo' value='" . $artigos[$x]["id"] . "'>Editar</button></form></div>";
+                }
             }
 
         }

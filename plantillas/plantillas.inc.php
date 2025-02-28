@@ -55,7 +55,7 @@ function menuPrincipal(){ ?>
         <li><a href="index.php">Inicio</a></li>
         <li class="seleccionado"><a href="#">Blog</a></li>
         <li><a href="#">Sobre min</a></li>
-        <li><a href="#">Fotos</a></li>
+        <li><a href="fotos.php">Fotos</a></li>
         <li><a href="contacto.php">Contacto</a></li>
         <li><a href="#">Enlaces</a></li>
         <?php if ($_SESSION["rol"]=="admin"){?>

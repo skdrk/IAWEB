@@ -73,6 +73,30 @@ function getArtigos() {
     return $artigos;
 }
 
+function getFotos() {
+    $mysqli = getConnection();
+    if (isset($_GET["foto"])) {
+        $id = $_GET["foto"];
+        $stmt = $mysqli->prepare("SELECT * FROM imagenes where id = $id");
+        $stmt->execute();
+    } else {
+        $stmt = $mysqli->prepare("SELECT * FROM imagenes");
+        $stmt->execute();
+    }
+    $result = $stmt->get_result();
+    $fotos = $result->fetch_all(MYSQLI_ASSOC);
+    return $fotos;
+}
+
+function borrarFoto() {
+    $mysqli = getConnection();
+    if (isset($_GET["borrar"])) {
+        $id = $_GET["foto"];
+        $stmt = $mysqli->prepare("DELETE FROM imagenes WHERE id = $id");
+        $stmt->execute();
+        header ("Location: ./fotos.php");
+    }
+}
 function editArtigos($artigos) {
     $mysqli = getConnection();
     if (isset($_GET["guardar"])){

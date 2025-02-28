@@ -40,5 +40,4 @@
                 <input type="submit">
             </div>
             </form>
-            <div><?php if ($resultado == True) { echo "<h2 style='color:green;'>¡Se ha creado la noticia con éxito!";}?></h2></div>
     </div>

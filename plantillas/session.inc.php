@@ -141,7 +141,7 @@ function crearNodo() {
         $mysqli = getConnection();
         $stmt = $mysqli->prepare("INSERT INTO artigo(titulo,autor,contido,data,subcategoria) VALUES ('$titulo', '$autor', '$contido', '$fecha', '$subcategoria')");
         $stmt->execute();
-        return True;
+        header ("Location: ./index.php?categoria=$subcategoria");
     } else {
         return False;
     }

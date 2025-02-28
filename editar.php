@@ -27,6 +27,7 @@
                     <select name='subcategoria' id="subcategorias" >
                     <?php 
                     $categorias = getCategorias();
+                    #Bucle para mostrar listado de las categorías con sus subcategorías
                     for ($i = 0; $i < count($categorias); $i++) {
                     
                         if ($i == 0 or $categorias[$i]["categoria"] !=  $categorias[$i - 1]["categoria"] ){
@@ -35,6 +36,7 @@
                             }
                             echo "<optgroup label='" . $categorias[$i]["categoria"] . "'>";
                         }
+                        #Selecciona categoría correspondiente al articulo
                         if ($categorias[$i]["subcategoria"] == $artigos[0]["subcategoria"]) {
                             echo "<option value=". $categorias[$i]["subcategoria"] ." selected> " . $categorias[$i]["subcategoria"] ."</option>";
                         } else {

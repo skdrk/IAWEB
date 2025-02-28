@@ -12,8 +12,10 @@ function iniciarSesion() {
     $user_data = $result->fetch_assoc();
 
     if ($user_data) {
+        $stmt = $mysqli->prepare("UPDATE usuarios set online = 1 WHERE login = ? ");
+        $stmt->bind_param('s', $login);
+        $stmt->execute();
         header ("Location: ./index.php");
-        echo "Usuario: " . $user_login . " Contraseña: " . $user_password;
         $_SESSION["rol"] = $user_data["rol"];
         $_SESSION["nombre"] = $user_data["nombre"]; 
         $_SESSION["apellidos"] = $user_data["apellidos"];
@@ -24,6 +26,15 @@ function iniciarSesion() {
     }
     
 
+}
+
+function checkonline() {
+    $mysqli = getConnection();
+    $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE online = 1");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $usariosOnline = $result->fetch_all(MYSQLI_ASSOC);
+    return $usariosOnline;
 }
 
 
@@ -72,6 +83,11 @@ function editArtigos($artigos) {
 
 
 function finalizarSesion() {
+    $mysqli = getConnection();
+    $login = $_SESSION["usuario"];
+    $stmt = $mysqli->prepare("UPDATE usuarios set online = 0 WHERE login = ? ");
+    $stmt->bind_param('s', $login);
+    $stmt->execute();
     //Destruir todas las variables de sesión.
     $_SESSION = array();
     //Si se desea destruir la sesión completamente, borrar la cookie de sesión.

@@ -125,7 +125,14 @@ function contido(){ ?>
         </div> <!-- /sobre mi -->
 
         <div class="clear"></div>
+        <h3>Usuarios Online</h3>
 
+        <ul id="archivo">
+            <?php $usariosOnline = checkonline() ?>
+            <?php for ($x = 0; $x < count($usariosOnline); $x++) {
+                echo "<li>" . $usariosOnline[$x]['login'] . "</li>";
+            }?>
+        </ul>
         <h3>Acciones</h3>
 
         <ul id="archivo">

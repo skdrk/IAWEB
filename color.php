@@ -1,6 +1,5 @@
 <?php 
     session_start();
-    
     if (isset($_GET["color"])) {
         $_SESSION["color"] = $_GET["color"] ;
     }

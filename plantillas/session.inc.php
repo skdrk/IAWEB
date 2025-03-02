@@ -295,3 +295,29 @@ function editarUser() {
     }
 
 }
+
+function editarFoto() {
+    $mysqli = getConnection();
+    if (isset($_GET["guardar"])) {
+        $id = $_GET["foto"];
+        $titulo = $_GET["titulo"];
+        $descripcion = $_GET["descripcion"];
+        $stmt = $mysqli->prepare("UPDATE imagenes SET titulo = ?, descripcion = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $titulo, $descripcion, $id);
+        $stmt->execute();
+        $stmt->close();
+        header("Location: ./fotos.php");
+        exit();      
+    }
+    if (isset($_GET["foto"])) {
+        $id = $_GET["foto"];
+        $stmt = $mysqli->prepare("SELECT * FROM imagenes WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $foto = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $foto;
+    }
+    return false;
+}
